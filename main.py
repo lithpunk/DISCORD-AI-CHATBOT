@@ -5,6 +5,7 @@ ollama.base_url = "http://localhost:11434"
 load_dotenv()
 
 tokn1 = os.getenv('DISCKI')
+tokn2 = os.getenv('MODELNAME')
 handler=logging.FileHandler(filename='discord.log',encoding='utf-8',mode='w')
 intents = discord.Intents.default()
 intents.message_content = True
@@ -33,7 +34,7 @@ async def clear(ctx):
 @bot.command()
 async def kit(ctx, *, prompt):
     user_id = ctx.author.id
-    personality = user_personalities.get(user_id, "You are a joyful assitant who identify as an ai girl")
+    personality = user_personalities.get(user_id, "You are a joyful assitant")
     mood = user_moods.get(user_id, "happy")
 
     mood_tones = {
@@ -58,7 +59,7 @@ async def kit(ctx, *, prompt):
 
     try:
         response = ollama.chat(
-            model="gemma:2b",
+            model=str(tokn2),
             messages=user_histories[user_id]
         )
 
